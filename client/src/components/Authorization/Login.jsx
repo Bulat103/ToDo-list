@@ -1,18 +1,44 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { userLogin } from '../redux/action/userActionCreater';
 
-function Login(props) {
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const registrationHandler = (event) => {
+    event.preventDefault();
+    console.log({ email, password, });
+    dispatch(userLogin({ email, password }))
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={(event) => registrationHandler(event)}>
         <div className="mb-3">
           <label className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name="name" />
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="name"
+            name="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
         </div>
         <button type="submit" className="btn btn-primary">Login</button>
       </form>

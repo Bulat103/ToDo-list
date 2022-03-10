@@ -4,7 +4,7 @@ import TodoItem from '../todoItem/TodoItem';
 import {
   selectTodo,
 } from '../redux/slicer/todoSlice';
-import { getTodos } from '../redux/action/actionCreater';
+import { getTodos } from '../redux/action/todoActionCreater';
 
 function TodoList() {
   const todos = useSelector(selectTodo);

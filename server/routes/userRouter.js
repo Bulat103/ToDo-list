@@ -12,15 +12,16 @@ router.post('/registration', async (req, res) => {
   const {
     name, email, password, repeatPassword,
   } = req.body;
+  let user;
   if (password === repeatPassword) {
     const r = await User.findOne({ where: { email }, raw: true });
     if (r) {
       return res.json({ text: 'Пользователь с такой почтой уже существет' });
     }
-    await User.create({
+    user = await User.create({
       name, email, password: sha256(password),
     });
-    return res.json({ text: 'Вы успешно зарегестрировались' });
+    return res.json({ user, text: 'Вы успешно зарегестрировались' });
   }
   res.send('Пароли не совпадают');
 });
@@ -29,35 +30,26 @@ router.post('/registration', async (req, res) => {
 // http://localhost:3000/user/login/
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(("LOGIN____________________", email, password));
   const user = await User.findOne({ where: { email }, raw: true });
   if (user) {
     if (user.password === sha256(password)) {
       req.session.user = user.name;
       req.session.userid = user.id;
-      return res.redirect('/user/index');
+      return res.json({ user });
     }
-    return res.render('login', { text: 'Wrong password' });
+    return res.json({ text: 'Wrong password' });
   }
-  return res.render('login', { text: 'there is no such user' });
-});
-
-//---------------------------------------------------------
-// http://localhost:3000/user/profile/
-router.get('/profile', checkAuth, async (req, res) => {
-  const post = await Post.findAll({
-    include: User, raw: true, order: [['updatedAt', 'DESC']], where: { user_id: req.session.userid },
-  });
-  console.log(post);
-  req.session.profile = true;
-  res.render('index', { post });
+  return res.json({ text: 'there is no such user' });
 });
 
 //---------------------------------------------------------
 // http://localhost:3000/user/logout/
 router.get('/logout', (req, res) => {
   // разрушается сессия
+  console.log('session destroed');
   req.session.destroy();
   res.clearCookie('authorisation');
-  res.redirect('/');
+  res.json({ text: "session destroyed" })
 });
 module.exports = router;

@@ -1,7 +1,14 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { userLogOut } from '../redux/action/userActionCreater'
 
 function Header() {
+  const dispatch = useDispatch();
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    console.log('logout');
+    dispatch(userLogOut());
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,6 +23,9 @@ function Header() {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/registration">Registration</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/" onClick={(event) => logoutHandler(event)}>Logout</a>
               </li>
             </ul>
           </div>

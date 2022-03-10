@@ -15,11 +15,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
+
 app.use(session({
   store: new FileStore(),
-  secret: 'todo',
+  secret: 'rtyujnku7i8yjiuhrgfg',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { secure: false },
   name: 'authorisation',
 }));

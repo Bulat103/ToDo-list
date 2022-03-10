@@ -4,7 +4,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   getTodos, addTodo, deleteTodo, changeState,
-} from '../action/actionCreater';
+} from '../action/todoActionCreater';
 
 export const todoSlice = createSlice({
   name: 'todos',
@@ -80,5 +80,5 @@ export const todoSlice = createSlice({
   },
 });
 
-export const selectTodo = (state) => state.todos.value;
+export const selectTodo = (state) => state.todoReducer.value;
 export default todoSlice.reducer;

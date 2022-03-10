@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../redux/action/actionCreater';
+import { addTodo } from '../redux/action/todoActionCreater';
 
 function AddTodo() {
   const [value, setValue] = useState('');

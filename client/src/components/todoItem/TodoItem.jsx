@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTodo, changeState } from '../redux/action/actionCreater';
+import { deleteTodo, changeState } from '../redux/action/todoActionCreater';
 
 function TodoItem({ id, title, done }) {
   const dispatch = useDispatch();
