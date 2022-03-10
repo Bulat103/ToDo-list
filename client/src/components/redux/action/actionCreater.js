@@ -5,7 +5,7 @@ import axios from 'axios';
 export const getTodos = createAsyncThunk('getTodos', async () => {
   let todoList;
   try {
-    todoList = await axios('/');
+    todoList = await axios('/todo');
   } catch (error) {
     console.log(error);
   }
@@ -15,7 +15,7 @@ export const getTodos = createAsyncThunk('getTodos', async () => {
 export const addTodo = createAsyncThunk('addTodo', async (value) => {
   let todoItem;
   try {
-    todoItem = await axios.post('/', { title: value });
+    todoItem = await axios.post('/todo', { title: value });
   } catch (error) {
     console.log(error);
   }
@@ -25,7 +25,7 @@ export const addTodo = createAsyncThunk('addTodo', async (value) => {
 export const deleteTodo = createAsyncThunk('deleteTodo', async (id) => {
   let deletedItem;
   try {
-    deletedItem = await axios.delete(`/${id}`);
+    deletedItem = await axios.delete(`/todo/${id}`);
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +35,7 @@ export const deleteTodo = createAsyncThunk('deleteTodo', async (id) => {
 export const changeState = createAsyncThunk('changeState', async (id) => {
   let changeStateItem;
   try {
-    changeStateItem = await axios.put(`/${id}`);
+    changeStateItem = await axios.put(`/todo/${id}`);
     console.log(changeStateItem);
   } catch (error) {
     console.log(error);
