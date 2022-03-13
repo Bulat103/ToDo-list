@@ -6,18 +6,16 @@ import Header from './components/Header/Header';
 import TodoList from './components/todoList/TodoList';
 import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser } from './components/redux/slicer/userSlice'
-import { getTodos } from './components/redux/action/todoActionCreater';
+import { selectUser } from './components/redux/slicer/userSlice';
+import { userRefresh } from './components/redux/action/userActionCreater'
 
 function App() {
   const isAuth = useSelector(selectUser).isAuth;
-  const userId = useSelector(selectUser).userId;
-  console.log(isAuth, userId);
   const dispatch = useDispatch();
 
   useEffect(() => {
- 
-  });
+    dispatch(userRefresh())
+  }, []);
 
   return (
     <div className="App">

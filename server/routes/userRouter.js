@@ -1,8 +1,8 @@
 /* eslint-disable arrow-body-style */
 const express = require('express');
 const sha256 = require('sha256');
-const { User, Post } = require('../db/models');
-const { checkAuth } = require('../middleware/checkAuth');
+const { User } = require('../db/models');
+const checkAuth = require('../middleware/checkAuth');
 
 const router = express.Router();
 
@@ -41,6 +41,12 @@ router.post('/login', async (req, res) => {
     return res.json({ text: 'Wrong password' });
   }
   return res.json({ text: 'there is no such user' });
+});
+
+//------------------------------------------------------
+// http://localhost:3000/user/refresh/
+router.get('/refresh', checkAuth, async (req, res) => {
+  return res.json({ name: req.session.user, id: req.session.userid });
 });
 
 //---------------------------------------------------------

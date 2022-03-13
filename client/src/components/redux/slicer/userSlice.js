@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { userRegistration, userLogin, userLogOut } from '../action/userActionCreater';
+import { userRegistration, userLogin, userLogOut, userRefresh } from '../action/userActionCreater';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -62,6 +62,26 @@ export const userSlice = createSlice({
     [userLogOut.rejected]: (state) => {
       state.status = 'failed';
       console.log('LOGOUT TODO REJECTED');
+      state.userName = '';
+      state.userId = '';
+      state.isAuth = false;
+    },
+
+    // REFRESH---------------------------------------
+    [userRefresh.pending]: (state) => {
+      state.status = 'loading';
+      console.log('REFRESH TODO PENDING');
+    },
+    [userRefresh.fulfilled]: (state, { payload }) => {
+      console.log('REFRESH FULFILLED', payload);
+      state.userName = payload.name;
+      state.userId = payload.id;
+      state.isAuth = true;
+      state.status = 'success';
+    },
+    [userRefresh.rejected]: (state) => {
+      state.status = 'failed';
+      console.log('REFRESH TODO REJECTED');
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
