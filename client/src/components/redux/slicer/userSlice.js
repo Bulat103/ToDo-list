@@ -30,10 +30,10 @@ export const userSlice = createSlice({
     // LOGIN---------------------------------------
     [userLogin.pending]: (state) => {
       state.status = 'loading';
-      console.log('ADD TODO PENDING');
+      console.log('LOGIN PENDING');
     },
     [userLogin.fulfilled]: (state, { payload }) => {
-      console.log('ADD TODO FULFILLED', payload);
+      console.log('LOGIN FULFILLED', payload);
       state.userName = payload.name;
       state.userId = payload.id;
       state.isAuth = true;
@@ -44,7 +44,7 @@ export const userSlice = createSlice({
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
-      console.log('ADD TODO REJECTED');
+      console.log('LOGIN REJECTED');
     },
 
     // LOGOUT---------------------------------------

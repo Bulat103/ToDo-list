@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from '../redux/action/todoActionCreater';
+import { selectUser } from '../redux/slicer/userSlice'
 
 function AddTodo() {
+  const userId = useSelector(selectUser).userId;
+  console.log('userId-------------------------------', userId);
   const [value, setValue] = useState('');
   const [warning, setWarning] = useState('');
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ function AddTodo() {
   const add = (event) => {
     event.preventDefault();
     if (value) {
-      dispatch(addTodo(value));
+      dispatch(addTodo({value, userId}));
     } else {
       setWarning('Emty field');
       setTimeout(() => {

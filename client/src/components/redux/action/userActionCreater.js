@@ -34,13 +34,13 @@ export const userLogOut = createAsyncThunk('userLogOut', async () => {
   return logOut.data;
 });
 
-// export const changeState = createAsyncThunk('changeState', async (id) => {
-//   let changeStateItem;
-//   try {
-//     changeStateItem = await axios.put(`/todo/${id}`);
-//     console.log(changeStateItem);
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   return changeStateItem.data.id;
-// });
+export const userRefresh = createAsyncThunk('userRefresh', async () => {
+  let user;
+  try {
+    console.log('refresh');
+    user = await axios('/user/refresh');
+  } catch (error) {
+    console.log(error);
+  }
+  return user.data;
+});

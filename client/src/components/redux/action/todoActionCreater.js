@@ -2,20 +2,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getTodos = createAsyncThunk('getTodos', async () => {
+export const getTodos = createAsyncThunk('getTodos', async (userId) => {
   let todoList;
+  console.log('userId---------------------------------', userId);
   try {
-    todoList = await axios('/todo');
+    todoList = await axios(`/todo/${userId}`);
   } catch (error) {
     console.log(error);
   }
   return todoList.data.todos;
 });
 
-export const addTodo = createAsyncThunk('addTodo', async (value) => {
+export const addTodo = createAsyncThunk('addTodo', async ({value, userId}) => {
   let todoItem;
+  console.log(userId);
   try {
-    todoItem = await axios.post('/todo', { title: value });
+    todoItem = await axios.post(`/todo/${userId}`, { title: value });
   } catch (error) {
     console.log(error);
   }

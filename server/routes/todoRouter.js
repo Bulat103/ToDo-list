@@ -1,19 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const { Todo } = require('../db/models');
+const { Todo, User, User_todo } = require('../db/models');
+const checkAuth = require('../middleware/checkAuth')
 
 //---------------------------------------------------------
-// http://localhost:3001/todo/new
+// http://localhost:3001/todo/:id
 // GET
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   let todos;
+  const userId = req.params.id;
+  console.log('userId------------------------------------', userId);
   try {
     todos = await Todo.findAll({
+      include: {
+        model: User,
+        as: 'Users',
+        where: {
+          id: userId
+        }
+      },
       raw: true,
       order: [
         ['createdAt', 'DESC']
       ]
     });
+    console.log(todos);
   } catch (error) {
     console.log(error);
   }
@@ -21,14 +32,18 @@ router.get("/", async (req, res) => {
 });
 
 //---------------------------------------------------------
-// http://localhost:3001/todo/new
+// http://localhost:3001/todo/:id
 // CREATE
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
+  const userId = req.params.id;
   const { title } = req.body;
-  console.log('TITLTE---------------', title);
+  console.log('TITLTE---------------', title, userId);
   let elem;
+  let todo;
   try {
     elem = await Todo.create({ title, done: false });
+    await User_todo.create({ user_id: userId, todo_id: elem.id });
+    console.log('elem++++++++++++++++++++++++++++++++++++++', elem);
   } catch (error) {
     console.log(error);
   }

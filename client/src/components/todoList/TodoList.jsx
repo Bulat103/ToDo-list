@@ -5,13 +5,17 @@ import {
   selectTodo,
 } from '../redux/slicer/todoSlice';
 import { getTodos } from '../redux/action/todoActionCreater';
+import { selectUser } from '../redux/slicer/userSlice'
 
 function TodoList() {
+  const userId = useSelector(selectUser).userId;
+  
   const todos = useSelector(selectTodo);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    dispatch(getTodos());
+    dispatch(getTodos(userId));
   }, []);
 
   return (
