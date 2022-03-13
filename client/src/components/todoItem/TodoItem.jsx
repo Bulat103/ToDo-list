@@ -36,7 +36,7 @@ function TodoItem({ id, title, done }) {
         </div>
         <div className="col-2">
           <button
-            className="delete"
+            className="delete btn btn-primary"
             type="button"
             data-id={id}
             onClick={(event) => deleteHandler(event)}

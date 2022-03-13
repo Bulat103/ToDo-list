@@ -69,5 +69,5 @@ export const userSlice = createSlice({
   }
 });
 
-export const selectTodo = (state) => state.userReducer.value;
+export const selectUser = (state) => state.userReducer;
 export default userSlice.reducer;

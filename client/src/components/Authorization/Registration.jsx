@@ -18,7 +18,7 @@ function Registration() {
   }
 
   return (
-    <div>
+    <div className='authContainer'>
       <form onSubmit={(event) => registrationHandler(event)}>
         <div className="mb-3">
           <label className="form-label">Email address</label>

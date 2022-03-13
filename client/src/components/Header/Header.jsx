@@ -1,8 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { userLogOut } from '../redux/action/userActionCreater'
+import { userLogOut } from '../redux/action/userActionCreater';
+import { selectUser } from '../redux/slicer/userSlice';
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const isAuth = useSelector(selectUser).isAuth;
   const dispatch = useDispatch();
   const logoutHandler = (event) => {
     event.preventDefault();
@@ -19,13 +22,13 @@ function Header() {
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/login">Login</a>
+                {!isAuth && <a className="nav-link" href="/login">Login</a>}
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/registration">Registration</a>
+                {!isAuth && <a className="nav-link" href="/registration">Registration</a>}
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/" onClick={(event) => logoutHandler(event)}>Logout</a>
+                {isAuth && <a className="nav-link" href="/" onClick={(event) => logoutHandler(event)}>Logout</a>}
               </li>
             </ul>
           </div>
