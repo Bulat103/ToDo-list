@@ -13,7 +13,6 @@ function Registration() {
 
   const registrationHandler = (event) => {
     event.preventDefault();
-    console.log({ email, name, password, repeatPassword });
     dispatch(userRegistration({email, name, password, repeatPassword}))
   }
 

@@ -28,7 +28,10 @@ app.use(session({
   secret: 'rtyujnku7i8yjiuhrgfg',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false },
+  cookie: {
+    secure: false,
+    httpOnly: true
+  },
   name: 'authorisation',
 }));
 

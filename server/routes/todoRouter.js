@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { Todo, User, User_todo } = require('../db/models');
-const checkAuth = require('../middleware/checkAuth')
 
 //---------------------------------------------------------
 // http://localhost:3001/todo/:id
@@ -9,7 +8,6 @@ const checkAuth = require('../middleware/checkAuth')
 router.get("/:id", async (req, res) => {
   let todos;
   const userId = req.params.id;
-  console.log('userId------------------------------------', userId);
   try {
     todos = await Todo.findAll({
       include: {
@@ -24,7 +22,6 @@ router.get("/:id", async (req, res) => {
         ['createdAt', 'DESC']
       ]
     });
-    console.log(todos);
   } catch (error) {
     console.log(error);
   }
@@ -37,13 +34,10 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
   const userId = req.params.id;
   const { title } = req.body;
-  console.log('TITLTE---------------', title, userId);
   let elem;
-  let todo;
   try {
     elem = await Todo.create({ title, done: false });
     await User_todo.create({ user_id: userId, todo_id: elem.id });
-    console.log('elem++++++++++++++++++++++++++++++++++++++', elem);
   } catch (error) {
     console.log(error);
   }
@@ -69,15 +63,13 @@ router.delete("/:id", async (req, res) => {
 // http://localhost:3001/todo/:id
 // PUT
 router.put("/:id", async (req, res) => {
-  console.log(req.params.id);
   try {
     const item = await Todo.findOne({
       where: {
         id: req.params.id
       },
       raw: true
-    })
-    console.log('*********************', item);
+    });
     await Todo.update(
       { done: !item.done },
       {

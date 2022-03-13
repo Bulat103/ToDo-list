@@ -5,7 +5,6 @@ import axios from 'axios';
 export const userRegistration = createAsyncThunk('userRegistration', async ({ name, email, password, repeatPassword }) => {
   let user;
   try {
-    console.log({ name, email, password, repeatPassword });
     user = await axios.post('/user/registration', { name, email, password, repeatPassword });
   } catch (error) {
     console.log(error);
@@ -26,7 +25,6 @@ export const userLogin = createAsyncThunk('userLogin', async ({ email, password 
 export const userLogOut = createAsyncThunk('userLogOut', async () => {
   let logOut;
   try {
-    console.log('logout');
     logOut = await axios('/user/logout');
   } catch (error) {
     console.log(error);
@@ -37,7 +35,6 @@ export const userLogOut = createAsyncThunk('userLogOut', async () => {
 export const userRefresh = createAsyncThunk('userRefresh', async () => {
   let user;
   try {
-    console.log('refresh');
     user = await axios('/user/refresh');
   } catch (error) {
     console.log(error);

@@ -10,7 +10,6 @@ function Login() {
 
   const registrationHandler = (event) => {
     event.preventDefault();
-    console.log({ email, password, });
     dispatch(userLogin({ email, password }))
   }
 

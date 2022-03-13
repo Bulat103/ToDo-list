@@ -30,7 +30,6 @@ router.post('/registration', async (req, res) => {
 // http://localhost:3000/user/login/
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log(("LOGIN____________________", email, password));
   const user = await User.findOne({ where: { email }, raw: true });
   if (user) {
     if (user.password === sha256(password)) {
@@ -52,10 +51,9 @@ router.get('/refresh', checkAuth, async (req, res) => {
 //---------------------------------------------------------
 // http://localhost:3000/user/logout/
 router.get('/logout', (req, res) => {
-  // разрушается сессия
-  console.log('session destroed');
   req.session.destroy();
   res.clearCookie('authorisation');
   res.json({ text: "session destroyed" })
 });
+
 module.exports = router;

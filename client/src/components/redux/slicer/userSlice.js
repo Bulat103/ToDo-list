@@ -9,79 +9,46 @@ export const userSlice = createSlice({
   initialState: {
     userName: '',
     userId: '',
-    isAuth: false,
-    status: null,
+    isAuth: false
   },
   extraReducers: {
     // REGISTRATION-------------------------------------
-    [userRegistration.pending]: (state) => {
-      state.status = 'loading';
-    },
     [userRegistration.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.userName = payload.name;
       state.userId = payload.id;
-      state.status = 'success';
-    },
-    [userRegistration.rejected]: (state) => {
-      state.status = 'failed';
     },
 
     // LOGIN---------------------------------------
-    [userLogin.pending]: (state) => {
-      state.status = 'loading';
-      console.log('LOGIN PENDING');
-    },
     [userLogin.fulfilled]: (state, { payload }) => {
-      console.log('LOGIN FULFILLED', payload);
       state.userName = payload.name;
       state.userId = payload.id;
       state.isAuth = true;
-      state.status = 'success';
     },
     [userLogin.rejected]: (state) => {
-      state.status = 'failed';
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
-      console.log('LOGIN REJECTED');
     },
 
     // LOGOUT---------------------------------------
-    [userLogOut.pending]: (state) => {
-      state.status = 'loading';
-      console.log('LOGOUT TODO PENDING');
-    },
     [userLogOut.fulfilled]: (state, { payload }) => {
-      console.log('LOGOUT FULFILLED', payload);
-      state.status = 'success';
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
     },
     [userLogOut.rejected]: (state) => {
-      state.status = 'failed';
-      console.log('LOGOUT TODO REJECTED');
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
     },
 
     // REFRESH---------------------------------------
-    [userRefresh.pending]: (state) => {
-      state.status = 'loading';
-      console.log('REFRESH TODO PENDING');
-    },
     [userRefresh.fulfilled]: (state, { payload }) => {
-      console.log('REFRESH FULFILLED', payload);
       state.userName = payload.name;
       state.userId = payload.id;
       state.isAuth = true;
-      state.status = 'success';
     },
     [userRefresh.rejected]: (state) => {
-      state.status = 'failed';
-      console.log('REFRESH TODO REJECTED');
       state.userName = '';
       state.userId = '';
       state.isAuth = false;
