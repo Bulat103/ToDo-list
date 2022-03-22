@@ -9,7 +9,7 @@ import { selectUser } from '../redux/slicer/userSlice'
 
 function TodoList() {
   const userId = useSelector(selectUser).userId;
-  
+
   const todos = useSelector(selectTodo);
   const dispatch = useDispatch();
 
@@ -20,12 +20,13 @@ function TodoList() {
 
   return (
     <div className="todolist">
-      {todos.map((item) => (
+      {todos.map((item, index) => (
         <TodoItem
           key={item.id}
           id={item.id}
           title={item.title}
           done={item.done}
+          number={index + 1}
         />
       ))}
     </div>

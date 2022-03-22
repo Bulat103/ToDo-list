@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTodo, changeState } from '../redux/action/todoActionCreater';
 
-function TodoItem({ id, title, done }) {
+function TodoItem({ id, title, done, number }) {
   const dispatch = useDispatch();
 
   const deleteHandler = (event) => {
@@ -15,37 +15,33 @@ function TodoItem({ id, title, done }) {
     dispatch(changeState(itemId));
   };
   return (
-    <div className="todoitem">
-      <div className="row ">
-        <div className="col-1">
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-              data-id={id}
-              checked={done ? 'checked' : ''}
-              onChange={(event) => changeStateHandler(event)}
-            />
-          </div>
-        </div>
-        <div className="col-9">
-          <div className="title">
-            <p className={done ? 'done' : 'undone'}>{title}</p>
-          </div>
-        </div>
-        <div className="col-2">
-          <button
-            className="delete btn btn-primary"
-            type="button"
+    <div className={`${done ? 'done' : 'undone'} todoitem`}>
+      <div>{number}.</div>
+      <div >
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="exampleCheck1"
             data-id={id}
-            onClick={(event) => deleteHandler(event)}
-          >
-            Delete
-          </button>
+            checked={done ? 'checked' : ''}
+            onChange={(event) => changeStateHandler(event)}
+          />
         </div>
       </div>
-
+      <div className="textWrap">
+        <p >{title}</p>
+      </div>
+      <div>
+        <button
+          className="delete btn btn-primary"
+          type="button"
+          data-id={id}
+          onClick={(event) => deleteHandler(event)}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }
